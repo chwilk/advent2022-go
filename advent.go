@@ -2,6 +2,7 @@ package main
 
 import (
 	"advent2022-go/day01"
+	"advent2022-go/helpers"
 	"bytes"
 	"fmt"
 	"io"
@@ -11,7 +12,7 @@ import (
 
 // Define an interface instantiated by each day
 type Days interface {
-	Run(io.Reader) int
+	Run(io.Reader, int) int
 }
 
 // Run against day of your choosing, default all
@@ -27,9 +28,9 @@ func main() {
 	}
 	fmt.Printf("Running for day%02d\n", day)
 	if day > 0 {
-		runDay(getDay(day), day)
+		runDay(getDay(day), day, helpers.PartA)
 	} else {
-		runDay(getDay(1), 1)
+		runDay(getDay(1), 1, helpers.PartA)
 	}
 }
 
@@ -45,11 +46,12 @@ func getDay(day int) Days {
 	}
 }
 
-func runDay(d Days, day int) {
+func runDay(d Days, day, part int) {
 	filename := fmt.Sprintf("problems/input%02d.dat", day)
 	data, err := os.ReadFile(filename)
 	if err == nil {
-		answer := d.Run(bytes.NewReader(data))
-		fmt.Printf("Day %2d answer is %d\n",day,answer)
+		answerA := d.Run(bytes.NewReader(data), helpers.PartA)
+		answerB := d.Run(bytes.NewReader(data), helpers.PartB)
+		fmt.Printf("Day %2d answers are %d and %d\n",day,answerA, answerB)
 	}
 }
