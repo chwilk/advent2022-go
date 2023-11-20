@@ -2,6 +2,7 @@ package main
 
 import (
 	"advent2022-go/day01"
+	"advent2022-go/day02"
 	"advent2022-go/helpers"
 	"bytes"
 	"fmt"
@@ -41,6 +42,8 @@ func usage() {
 
 func getDay(day int) Days {
 	switch day {
+	case 2:
+		return day02.Day02{}
 	default:
 		return day01.Day01{}
 	}
