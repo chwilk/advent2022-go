@@ -20,7 +20,7 @@ func TestRun(t *testing.T) {
 		helpers.Check(t, expect, got)
 	})
 	t.Run("Run function part B", func(t *testing.T) {
-		expect := 0
+		expect := 70
 		got := Day03{}.Run(strings.NewReader(example), helpers.PartB)
 		helpers.Check(t, expect, got)
 	})

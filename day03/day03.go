@@ -14,12 +14,10 @@ func (f Day03) Run(input io.Reader, part int) (result int) {
 	case helpers.PartA:
 		result = PartA(input)
 	default:
-		
+		result = PartB(input)
 	}
 	return
 }
-
-//var items [53]bool
 
 func PartA(lines io.Reader) (answer int) {
 	scanner := bufio.NewScanner(lines)
@@ -36,6 +34,39 @@ func PartA(lines io.Reader) (answer int) {
 				break
 			}
 		}
+	}
+	return
+}
+
+func PartB(lines io.Reader) (answer int) {
+	scanner := bufio.NewScanner(lines)
+	var items [53]bool
+	var groupMember int
+	for scanner.Scan() {
+	    var tmpItems [53]bool
+		contents := prioritize(scanner.Bytes())
+		for _,v := range contents {
+			tmpItems[v] = true
+		}
+		switch groupMember {
+		case 0:
+			for i := range items {
+				items[i] = tmpItems[i]
+			}
+		case 1:
+			for i := range items {
+				items[i] = items[i] && tmpItems[i]
+			}
+		case 2:
+			for i := range items {
+				if items[i] && tmpItems[i] {
+					answer += i
+				}
+				items[i] = false
+			}
+			groupMember = -1
+		}
+		groupMember ++
 	}
 	return
 }
