@@ -1,0 +1,28 @@
+package dayXX
+
+import (
+	"advent2022-go/helpers"
+	"bufio"
+	"io"
+)
+
+type DayXX struct {
+}
+
+func (f DayXX) Run(input io.Reader, part int) (result int) {
+	switch part {
+	case helpers.PartA:
+		
+	default:
+		
+	}
+	return
+}
+
+func PartA(lines io.Reader) (answer []int) {
+	scanner := bufio.NewScanner(lines)
+
+	for scanner.Scan() {
+	}
+	return
+}
