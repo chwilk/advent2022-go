@@ -15,14 +15,14 @@ CrZsJsPPZsGzwwsLwLmpwMDw`
 
 func TestRun(t *testing.T) {
 	t.Run("Run function part A", func(t *testing.T) {
-		expect := 157
+		expect := "157"
 		got := Day03{}.Run(strings.NewReader(example), helpers.PartA)
-		helpers.Check(t, expect, got)
+		helpers.CheckString(t, expect, got)
 	})
 	t.Run("Run function part B", func(t *testing.T) {
-		expect := 70
+		expect := "70"
 		got := Day03{}.Run(strings.NewReader(example), helpers.PartB)
-		helpers.Check(t, expect, got)
+		helpers.CheckString(t, expect, got)
 	})
 }
 

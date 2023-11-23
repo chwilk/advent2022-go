@@ -15,14 +15,14 @@ const example string = `2-4,6-8
 
 func TestRun(t *testing.T) {
 	t.Run("Run function part A", func(t *testing.T) {
-		expect := 2
+		expect := "2"
 		got := Day04{}.Run(strings.NewReader(example), helpers.PartA)
-		helpers.Check(t, expect, got)
+		helpers.CheckString(t, expect, got)
 	})
 	t.Run("Run function part B", func(t *testing.T) {
-		expect := 4
+		expect := "4"
 		got := Day04{}.Run(strings.NewReader(example), helpers.PartB)
-		helpers.Check(t, expect, got)
+		helpers.CheckString(t, expect, got)
 	})
 }
 

@@ -3,6 +3,7 @@ package day04
 import (
 	"advent2022-go/helpers"
 	"bufio"
+	"fmt"
 	"io"
 	"regexp"
 	"strconv"
@@ -11,12 +12,12 @@ import (
 type Day04 struct {
 }
 
-func (f Day04) Run(input io.Reader, part int) (result int) {
+func (f Day04) Run(input io.Reader, part int) (result string) {
 	switch part {
 	case helpers.PartA:
-		result = PartA(input)
+		result = fmt.Sprint(PartA(input))
 	default:
-		result = PartB(input)
+		result = fmt.Sprint(PartB(input))
 	}
 	return
 }

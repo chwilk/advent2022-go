@@ -3,6 +3,7 @@ package day01
 import (
 	"advent2022-go/helpers"
 	"bufio"
+	"fmt"
 	"io"
 	"sort"
 	"strconv"
@@ -11,13 +12,13 @@ import (
 type Day01 struct {
 }
 
-func (f Day01) Run(input io.Reader, part int) (result int) {
+func (f Day01) Run(input io.Reader, part int) (result string) {
 	switch part {
 	case helpers.PartA:
-		result = Calories(input)[0]
+		result = fmt.Sprint(Calories(input)[0])
 	default:
 		a := Calories(input)
-		result = a[0] + a[1] + a[2]
+		result = fmt.Sprint(a[0] + a[1] + a[2])
 	}
 	return
 }

@@ -3,18 +3,19 @@ package day02
 import (
 	"advent2022-go/helpers"
 	"bufio"
+	"fmt"
 	"io"
 )
 
 type Day02 struct {
 }
 
-func (f Day02) Run(input io.Reader, part int) (result int) {
+func (f Day02) Run(input io.Reader, part int) (result string) {
 	switch part {
 	case helpers.PartA:
-		result = ScoreA(input)
+		result = fmt.Sprint(ScoreA(input))
 	default:
-		result = ScoreB(input)
+		result = fmt.Sprint(ScoreB(input))
 	}
 	return
 }

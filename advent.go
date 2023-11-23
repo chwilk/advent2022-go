@@ -15,7 +15,7 @@ import (
 
 // Define an interface instantiated by each day
 type Days interface {
-	Run(io.Reader, int) int
+	Run(io.Reader, int) string
 }
 
 // Run against day of your choosing, default all
@@ -25,7 +25,7 @@ func main() {
 	var err error
 	if len(args) >= 1 {
 		day, err = strconv.Atoi(args[0])
-		if err != nil || day > 25 || day < 1{
+		if err != nil || day > 25 || day < 1 {
 			usage()
 		}
 	}
@@ -61,6 +61,6 @@ func runDay(d Days, day, part int) {
 	if err == nil {
 		answerA := d.Run(bytes.NewReader(data), helpers.PartA)
 		answerB := d.Run(bytes.NewReader(data), helpers.PartB)
-		fmt.Printf("Day %2d answers are %d and %d\n",day,answerA, answerB)
+		fmt.Printf("Day %2d answers are %v and %v\n", day, answerA, answerB)
 	}
 }
