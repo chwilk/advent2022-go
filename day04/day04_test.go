@@ -20,7 +20,7 @@ func TestRun(t *testing.T) {
 		helpers.Check(t, expect, got)
 	})
 	t.Run("Run function part B", func(t *testing.T) {
-		expect := 0
+		expect := 4
 		got := Day04{}.Run(strings.NewReader(example), helpers.PartB)
 		helpers.Check(t, expect, got)
 	})
@@ -45,7 +45,31 @@ func TestContains(t *testing.T) {
 			t.Errorf("Wrong result for %q, %q", a, b)
 		}
 	})
+}
 
+func TestOverlaps(t *testing.T) {
+	t.Run("Simple overlap", func(t *testing.T) {
+		a := [2]int{5, 7}
+		b := [2]int{7, 9}
+		expect := true
+		got := overlaps(a, b)
+		if expect != got {
+			t.Errorf("Wrong result for %v %v", a, b)
+		}
+		got = overlaps(b, a)
+		if expect != got {
+			t.Errorf("Wrong result for %v %v", b, a)
+		}
+	})
+	t.Run("Single value overlap", func(t *testing.T) {
+		a := [2]int{6, 6}
+		b := [2]int{4, 6}
+		expect := true
+		got := overlaps(b, a)
+		if expect != got {
+			t.Errorf("Wrong result for %v %v", a, b)
+		}
+	})
 }
 
 func TestParseLine(t *testing.T) {

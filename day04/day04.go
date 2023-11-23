@@ -16,7 +16,7 @@ func (f Day04) Run(input io.Reader, part int) (result int) {
 	case helpers.PartA:
 		result = PartA(input)
 	default:
-		
+		result = PartB(input)
 	}
 	return
 }
@@ -33,11 +33,35 @@ func PartA(lines io.Reader) (answer int) {
 	return
 }
 
+func PartB(lines io.Reader) (answer int) {
+	scanner := bufio.NewScanner(lines)
+
+	for scanner.Scan() {
+		a, b := parseLine(scanner.Text())
+		if overlaps(a, b) {
+			answer ++
+		}
+	}
+	return
+}
+
 func contains(a, b [2]int) bool {
 	switch {
 	case a[0] <= b[0] && a[1] >= b[1]:
 		fallthrough
 	case a[0] >= b[0] && a[1] <= b[1]:
+		return true
+	default:
+		return false
+	}
+}
+
+func overlaps(a, b [2]int) bool {
+	if contains(a,b) { return true}
+	switch {
+	case a[0] <= b[0] && a[1] >= b[0]:
+		fallthrough
+	case b[0] <= a[0] && b[1] >= a[0]:
 		return true
 	default:
 		return false
