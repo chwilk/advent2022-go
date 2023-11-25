@@ -25,24 +25,26 @@ func (s stack) Insert(v byte) stack {
 
 func (s stack) Pop() (stack, byte) {
 	l := len(s)
-	if l > 0 {
+	if l > 1 {
 		return s[:l-1], s[l-1]
+	} else if l == 1 {
+		return nil, s[0]
 	} else {
-		return s, 0
+		return nil, 0
 	}
 }
 
 func (f Day05) Run(input io.Reader, part int) (result string) {
 	switch part {
 	case helpers.PartA:
-		result = PartA(input)
+		result = PartA(input, 9000)
 	default:
-		result = PartB(input)
+		result = PartA(input, 9001)
 	}
 	return
 }
 
-func PartA(lines io.Reader) (answer string) {
+func PartA(lines io.Reader, crateMover int) (answer string) {
 	scanner := bufio.NewScanner(lines)
 	stacks := [9]stack{}
 
@@ -79,7 +81,16 @@ func PartA(lines io.Reader) (answer string) {
 				if err != nil {
 					panic("Failure parsing move dest")
 				}
-				stacks = move(stacks, count, from, to)
+				if crateMover == 9000 {
+					stacks = move(stacks, count, from, to)
+				} else {
+					tmp := 3
+					// find an uninvolved stack
+					if from == tmp {tmp++}
+					if to == tmp {tmp++}
+					stacks = move(stacks, count, from, tmp)
+					stacks = move(stacks, count, tmp, to)
+				}
 			}
 		}
 	}
@@ -102,20 +113,11 @@ func move(stacks [9]stack, count, from, to int) [9]stack {
 }
 
 func printStack(stacks [9]stack) (answer string) {
-	for _,s := range stacks {
-		_, tmp :=  s.Pop() 
+	for _, s := range stacks {
+		_, tmp := s.Pop()
 		if tmp != 0 {
 			answer += string(tmp)
 		}
 	}
 	return
-}
-
-func PartB(lines io.Reader) (answer string) {
-	scanner := bufio.NewScanner(lines)
-	stacks := [9]stack{}
-
-	for scanner.Scan() {
-	}
-	return printStack(stacks)
 }

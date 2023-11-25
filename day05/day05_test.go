@@ -24,7 +24,7 @@ func TestRun(t *testing.T) {
 		helpers.CheckString(t, expect, got)
 	})
 	t.Run("Run function part B", func(t *testing.T) {
-		expect := ""
+		expect := "MCD"
 		got := Day05{}.Run(strings.NewReader(example), helpers.PartB)
 		helpers.CheckString(t, expect, got)
 	})
@@ -44,13 +44,20 @@ func TestStack(t *testing.T) {
 }
 
 func TestMove(t *testing.T) {
-	expect := [9]stack{{}, {'B', 'A'}, {'C'}}
-	stacks := [9]stack{}
-	stacks[0] = stacks[0].Push('A')
-	stacks[1] = stacks[1].Push('B')
-	stacks[2] = stacks[2].Push('C')
-	stacks = move(stacks, 1, 1, 2)
-	if !reflect.DeepEqual(expect, stacks) {
-		t.Errorf("Expected %d, got %d", expect, stacks)
-	}
+	stacks := [9]stack{{'A'}, {'B', 'D'}, {'C'}}
+	t.Run("CrateMover 9000 operation", func(t *testing.T) {
+		expect := [9]stack{{'A', 'D', 'B'}, nil, {'C'}}
+		stacksA := move(stacks, 2, 2, 1)
+		if !reflect.DeepEqual(expect, stacksA) {
+			t.Errorf("Expected %d, got %d", expect, stacksA)
+		}
+	})
+	t.Run("CrateMover 9001 operation", func(t *testing.T) {
+		expect := [9]stack{{'A', 'B', 'D'}, nil, {'C'}}
+		stacksB := move(stacks, 2, 2, 5)
+		stacksB = move(stacksB, 2, 5, 1)
+		if !reflect.DeepEqual(expect, stacksB) {
+			t.Errorf("Expected %v, got %v", expect, stacksB)
+		}
+	})
 }
