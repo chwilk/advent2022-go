@@ -2,6 +2,7 @@ package day05
 
 import (
 	"advent2022-go/helpers"
+	"reflect"
 	"strings"
 	"testing"
 )
@@ -23,7 +24,7 @@ func TestRun(t *testing.T) {
 		helpers.CheckString(t, expect, got)
 	})
 	t.Run("Run function part B", func(t *testing.T) {
-		expect := "0"
+		expect := ""
 		got := Day05{}.Run(strings.NewReader(example), helpers.PartB)
 		helpers.CheckString(t, expect, got)
 	})
@@ -39,5 +40,17 @@ func TestStack(t *testing.T) {
 	_, got := s.Pop()
 	if got != expect {
 		t.Errorf("Expected %d, got %d", expect, got)
+	}
+}
+
+func TestMove(t *testing.T) {
+	expect := [9]stack{{}, {'B', 'A'}, {'C'}}
+	stacks := [9]stack{}
+	stacks[0] = stacks[0].Push('A')
+	stacks[1] = stacks[1].Push('B')
+	stacks[2] = stacks[2].Push('C')
+	stacks = move(stacks, 1, 1, 2)
+	if !reflect.DeepEqual(expect, stacks) {
+		t.Errorf("Expected %d, got %d", expect, stacks)
 	}
 }

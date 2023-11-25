@@ -3,8 +3,9 @@ package day05
 import (
 	"advent2022-go/helpers"
 	"bufio"
-	"fmt"
 	"io"
+	"strconv"
+	"strings"
 )
 
 type Day05 struct {
@@ -34,22 +35,21 @@ func (s stack) Pop() (stack, byte) {
 func (f Day05) Run(input io.Reader, part int) (result string) {
 	switch part {
 	case helpers.PartA:
-		result = fmt.Sprint(PartA(input))
+		result = PartA(input)
 	default:
-		result = fmt.Sprint(PartB(input))
+		result = PartB(input)
 	}
 	return
 }
 
-func PartA(lines io.Reader) (answer int) {
+func PartA(lines io.Reader) (answer string) {
 	scanner := bufio.NewScanner(lines)
 	stacks := [9]stack{}
 
 	mapping := true
 	for scanner.Scan() {
-		line := scanner.Bytes()
-
 		if mapping {
+			line := scanner.Bytes()
 			len := len(line)
 			for i := 1; i < len; i += 4 {
 				switch {
@@ -65,16 +65,57 @@ func PartA(lines io.Reader) (answer int) {
 				}
 			}
 		} else {
+			words := strings.Split(scanner.Text(), " ")
+			if words[0] == "move" {
+				count, err := strconv.Atoi(words[1])
+				if err != nil {
+					panic("Failure parsing move count")
+				}
+				from, err := strconv.Atoi(words[3])
+				if err != nil {
+					panic("Failure parsing move source")
+				}
+				to, err := strconv.Atoi(words[5])
+				if err != nil {
+					panic("Failure parsing move dest")
+				}
+				stacks = move(stacks, count, from, to)
+			}
+		}
+	}
+	return printStack(stacks)
+}
 
+func move(stacks [9]stack, count, from, to int) [9]stack {
+	var tmp byte
+	from -= 1
+	to -= 1
+	if len(stacks[from]) >= count {
+		for i := 0; i < count; i++ {
+			stacks[from], tmp = stacks[from].Pop()
+			stacks[to] = stacks[to].Push(tmp)
+		}
+	} else {
+		panic("Cannot move more boxes than a stack has")
+	}
+	return stacks
+}
+
+func printStack(stacks [9]stack) (answer string) {
+	for _,s := range stacks {
+		_, tmp :=  s.Pop() 
+		if tmp != 0 {
+			answer += string(tmp)
 		}
 	}
 	return
 }
 
-func PartB(lines io.Reader) (answer int) {
+func PartB(lines io.Reader) (answer string) {
 	scanner := bufio.NewScanner(lines)
+	stacks := [9]stack{}
 
 	for scanner.Scan() {
 	}
-	return
+	return printStack(stacks)
 }
