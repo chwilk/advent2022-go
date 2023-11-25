@@ -86,8 +86,15 @@ func PartA(lines io.Reader, crateMover int) (answer string) {
 				} else {
 					tmp := 3
 					// find an uninvolved stack
-					if from == tmp {tmp++}
-					if to == tmp {tmp++}
+					if from == tmp {
+						tmp++
+					}
+					if to == tmp {
+						tmp++
+					}
+					if from == tmp {
+						tmp++
+					}
 					stacks = move(stacks, count, from, tmp)
 					stacks = move(stacks, count, tmp, to)
 				}
